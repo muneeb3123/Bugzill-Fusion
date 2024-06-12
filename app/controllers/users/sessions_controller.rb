@@ -15,7 +15,7 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def respond_to_on_destroy
-    if current_user
+    if current_user.nil?
       render json: {
         status: 200,
         message: 'logged out successfully'
@@ -23,5 +23,5 @@ class Users::SessionsController < Devise::SessionsController
     else
       render json: { status: 401, message: "Couldn't find an active session." }, status: :unprocessable_entity
     end
-  end
+  end  
 end

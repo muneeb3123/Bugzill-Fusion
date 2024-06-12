@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/custom', to: 'custom#index'
   devise_for :users, path:'', path_names: {
     sign_in: 'login',
     sign_out: 'logout',
@@ -10,5 +11,6 @@ Rails.application.routes.draw do
   }
 
   root 'home#index'
+  get '/current_user', to: 'current_users#index'
   get '*path', to: 'home#index', via: :all 
 end

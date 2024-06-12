@@ -44,6 +44,7 @@ const AuthForm = ({
   });
 
   useEffect(() => {
+    console.log(isLogin)
     isLogin && navigate("/");
   }, [isLogin, navigate]);
 

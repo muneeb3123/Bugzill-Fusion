@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 export const login = createAsyncThunk("login/loginUser", async (user) => {
   try {
     const response = await axios.post(
-      "https://bug-zilla.onrender.com/login",
+      "http://127.0.0.1:3000/login",
       {
         user: user,
       },
@@ -20,14 +20,15 @@ export const login = createAsyncThunk("login/loginUser", async (user) => {
     toast.success(data.message);
     return data;
   } catch (error) {
-    // toast.error(error.response.data);
+    toast.error(error.response.data);
+    console.error(error)
   }
 });
 
 export const logout = createAsyncThunk("login/logoutUser", async () => {
   const token = localStorage.getItem("token");
   try {
-    const response = await axios.delete("https://bug-zilla.onrender.com/logout", {
+    const response = await axios.delete("http://127.0.0.1:3000/logout", {
       headers: {
         "Content-Type": "application/json",
         Authorization: token,
@@ -35,28 +36,29 @@ export const logout = createAsyncThunk("login/logoutUser", async () => {
     });
     const data = response.data;
     localStorage.removeItem("token");
-    // toast.success(data.message);
+    toast.success(data.message);
     return data;
   } catch (error) {
-    throw(error.response.data.message);
+    toast.error(error.response.data.message);
   }
 });
 
-// export const currentUser = createAsyncThunk("login/currentUser", async () => {
-//   const token = localStorage.getItem("token");
+export const currentUser = createAsyncThunk("login/currentUser", async () => {
+  const token = localStorage.getItem("token");
 
-//   try {
-//     const response = await axios.get("https://bug-zilla.onrender.com/current_user", {
-//       headers: {
-//         Authorization: token,
-//       },
-//     });
-//     const data = response.data;
-//     return data;
-//   } catch (error) {
-//     throw error.response.data;
-//   }
-// });
+  try {
+    const response = await axios.get("http://127.0.0.1:3000/current_user", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw error.response.data;
+  }
+});
 
 export const signup = createAsyncThunk("signup/signupUser", async (user) => {
   try {
@@ -65,9 +67,10 @@ export const signup = createAsyncThunk("signup/signupUser", async (user) => {
     });
     const data = response.data;
     localStorage.setItem("token", response.headers.authorization);
-    // toast.success(response.data.message);
+    toast.success(response.data.message);
     return data;
   } catch (error) {
+    console.error(error)
     toast.error(error.response.data.errors[0]);
   }
 });
