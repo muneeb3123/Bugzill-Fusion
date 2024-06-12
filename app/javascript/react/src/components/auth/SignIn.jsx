@@ -1,19 +1,19 @@
 import React from 'react'
 import ReactDom from 'react-dom/client';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AuthForm from './AuthForm';
-// import { useSelector } from 'react-redux';
-// import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 const SignIn = () => {
-  // const navigate = useNavigate()
-  // const {isUser} = useSelector((state) => state.auth)
+  const navigate = useNavigate()
+  const {isUser} = useSelector((state) => state.auth)
   
-  // useEffect(() => {
-  //   if (isUser) {
-  //     navigate('/');
-  //   }
-  // }, [isUser, navigate]);
+  useEffect(() => {
+    if (isUser) {
+      navigate('/');
+    }
+  }, [isUser, navigate]);
 
   const signInInputFields = [
     {
@@ -37,12 +37,5 @@ const SignIn = () => {
     />
   );
 };
-
-// const loginRoot = ReactDom.createRoot(document.getElementById('login'))
-// loginRoot.render(
-// <React.StrictMode>
-//     <SignIn />
-// </React.StrictMode>
-//  )
 
 export default SignIn;

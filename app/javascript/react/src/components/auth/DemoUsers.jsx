@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import PropTypes from "prop-types";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 // import { login } from "../../features/auth/authThunks";
 
 const DemoUsers = ({ isOpen, setIsOpen }) => {

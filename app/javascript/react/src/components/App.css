@@ -1,0 +1,97 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: #f2f2f2;
+}
+
+.layout-container {
+  display: grid;
+  grid-template-columns: 20rem 8fr;
+}
+
+@media (max-width: 1024px) {
+  html {
+    font-size: 58%;
+  }
+
+  .auth-container .auth-form {
+    width: 92%;
+    max-width: 270px;
+  }
+
+  .auth-page .welcomeback-section {
+    padding: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 56%;
+  }
+
+  .main .auth-page {
+    font-size: 1.5rem;
+  }
+
+  .auth-container .auth-form {
+    width: 92%;
+    max-width: 270px;
+  }
+
+  .auth-page .welcomeback-section {
+    padding: 2rem;
+  }
+
+  .checkbox-container .term {
+    margin-left: 4px;
+  }
+
+  .layout-container {
+    display: grid;
+    grid-template-columns: 14rem auto;
+  }
+
+  .nav-link {
+    font-size: 1.3rem;
+  }
+
+  tr {
+    font-size: 0.7rem;
+  }
+
+  .live-search-container {
+    width: 15rem;
+  }
+
+  .live-search-container input {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .collaborator-container {
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 425px) {
+  .auth-page .welcomeback-section {
+    display: none;
+  }
+
+  .main .auth-page {
+    grid-template-columns: 1fr;
+  }
+}

@@ -3,12 +3,15 @@ import ReactDom from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import SigIn from './auth/SignIn'
 import SignUp from './auth/SignUp'
+import store from '../store'
+import { Provider } from 'react-redux'
+import './App.css'
 
 const App = () => {
   return (
     <>
     <Routes>
-      <Route path='/login' element={<SigIn />} />
+      <Route path='/signin' element={<SigIn />} />
       <Route path='/signup' element={<SignUp />} />
     </Routes>
     </>
@@ -18,9 +21,11 @@ const App = () => {
 const root = ReactDom.createRoot(document.getElementById('root'))
 root.render(
 <React.StrictMode>
+<Provider store={store}>
   <BrowserRouter>
     <App />
   </BrowserRouter>
+  </Provider>
 </React.StrictMode>
  )
 

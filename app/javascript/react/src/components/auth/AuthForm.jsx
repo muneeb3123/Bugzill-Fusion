@@ -2,9 +2,9 @@ import React, { useEffect, useState} from 'react';
 import PropTypes from "prop-types";
 import './authForm.css';
 import { useFormik } from "formik";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signupSchema, signinSchema } from "../../schemas";
-// import { login, signup } from "../../features/auth/authThunks";
+import { login, signup } from "../../features/auth/authThunks";
 import { Link, useNavigate } from "react-router-dom";
 import DemoUsers from "./DemoUsers";
 
@@ -19,9 +19,9 @@ const AuthForm = ({
   showCheckbox = false,
   user_type = "",
 }) => {
-  // const { isLogin } = useSelector((state) => state.auth);
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const { isLogin } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const { values, handleChange, handleSubmit, errors, touched, setFieldValue, handleBlur } = useFormik({
@@ -35,17 +35,17 @@ const AuthForm = ({
     validationSchema: formType === "signin" ? signinSchema : signupSchema,
     onSubmit: (values, action) => {
       if (formType === "signin") {
-        // dispatch(login(values));
+        dispatch(login(values));
       } else if (formType === "signup") {
-        // dispatch(signup(values));
+        dispatch(signup(values));
       }
       action.resetForm();
     },
   });
 
-  // useEffect(() => {
-  //   isLogin && navigate("/");
-  // }, [isLogin, navigate]);
+  useEffect(() => {
+    isLogin && navigate("/");
+  }, [isLogin, navigate]);
 
   return (
     <div className="main">
@@ -105,7 +105,7 @@ const AuthForm = ({
             </>
           )}
           {formType === "signup" && (
-            <Link to={"/login"} className="auth-message">
+            <Link to={"/signin"} className="auth-message">
               {message}
             </Link>
           )}
