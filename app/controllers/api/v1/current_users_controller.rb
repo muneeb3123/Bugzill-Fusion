@@ -1,5 +1,4 @@
-class CurrentUsersController < ApplicationController
-    skip_before_action :verify_authenticity_token
+module Api module V1 class CurrentUsersController < ApplicationController
     include RackSessionFix
     before_action :authenticate_user!
   
@@ -16,4 +15,6 @@ class CurrentUsersController < ApplicationController
         }, status: :unprocessable_entity
       end
     end
+end
+end
 end

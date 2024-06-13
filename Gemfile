@@ -29,6 +29,8 @@ gem "jbuilder"
 gem 'devise'
 gem 'devise-jwt'
 gem 'jsonapi-serializer'
+gem 'cancancan'
+gem 'google-cloud-storage'
 
 # Use Redis adapter to run Action Cable in production
 gem "redis", ">= 4.0.1"

@@ -1,6 +1,5 @@
 class Users::SessionsController < Devise::SessionsController
   include RackSessionFix
-  skip_before_action :verify_authenticity_token
 
   respond_to :json
 

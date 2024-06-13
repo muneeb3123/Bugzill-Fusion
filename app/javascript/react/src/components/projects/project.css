@@ -1,0 +1,50 @@
+.dashboard-header {
+  padding: 1rem 5rem;
+  background-image: linear-gradient(to right, #6e87f7  0%, #6f23ff 100%);
+  font-size: 3rem;
+  text-align: center;
+  color: #fff;
+}
+
+.projects {
+  width: calc(100% - 30px);
+  margin: 2rem auto;
+  background-color: #fff;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.styled-table th {
+  background-color: #f7f8fb;
+}
+
+.styled-table th,
+.styled-table td {
+  border-bottom: 1px solid #ddd;
+  padding: 1rem;
+  text-align: left;
+}
+
+.project-name {
+  color: rgb(18, 2, 241);
+}
+
+.project-page {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2rem;
+  background-color: #f7f8fb;
+}
+
+.project-page > h3 {
+  font-size: 2rem;
+}
+
+.new-project {
+  width: 9rem;
+  background-color: #6f23ff;
+}

@@ -1,5 +1,10 @@
 class User < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
+
+  has_many :bugs, class_name: 'Bug', foreign_key: 'creator_id', dependent: :destroy
+  has_many :bugs, class_name: 'Bug', foreign_key: 'developer_id', dependent: :destroy  
+  has_many :user_projects
+  has_many :projects, through: :user_projects
   
   validates :user_type, presence: true, inclusion: { in: %w[developer manager qa] }
   validates :email, presence: true, uniqueness: true

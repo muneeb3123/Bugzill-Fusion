@@ -4,8 +4,8 @@ import {
   logout,
   currentUser,
   signup,
-  // fetchDevelopers,
-  // fetchQas,
+  fetchDevelopers,
+  fetchQas,
 } from "./authThunks";
 
 const initialState = {
@@ -75,22 +75,22 @@ const authSlice = createSlice({
         state.isLogin = true;
       }
     });
-    // builder.addCase(fetchDevelopers.fulfilled, (state, action) => {
-    //   state.loading = false;
-    //   state.developers = action.payload;
-    // });
-    // builder.addCase(fetchDevelopers.rejected, (state, action) => {
-    //   state.loading = false;
-    //   state.error = action.error.message;
-    // });
-    // builder.addCase(fetchQas.fulfilled, (state, action) => {
-    //   state.loading = false;
-    //   state.qas = action.payload;
-    // });
-    // builder.addCase(fetchQas.rejected, (state, action) => {
-    //   state.loading = false;
-    //   state.error = action.error.message;
-    // });
+    builder.addCase(fetchDevelopers.fulfilled, (state, action) => {
+      state.loading = false;
+      state.developers = action.payload;
+    });
+    builder.addCase(fetchDevelopers.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(fetchQas.fulfilled, (state, action) => {
+      state.loading = false;
+      state.qas = action.payload;
+    });
+    builder.addCase(fetchQas.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
   },
 });
 

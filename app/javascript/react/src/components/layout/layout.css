@@ -1,0 +1,53 @@
+.menu {
+  height: 100vh;
+  background-color: #fff;
+  padding: 5px 10px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.logo {
+  width: 15rem;
+}
+
+nav {
+  padding-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 2rem;
+}
+
+nav div {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  color: rgb(58, 54, 54);
+}
+
+.seprater {
+  width: 100%;
+  height: 1px;
+  background-color: silver;
+}
+
+.btn {
+  padding: 0.6rem;
+  background-color: red;
+  color: #fff;
+  width: 9rem;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.auth-btn {
+  margin: auto;
+}

@@ -1,11 +1,14 @@
 import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import PropTypes from "prop-types";
+import manager from "../../images/manager.jpeg";
+import developer from "../../images/dev.jpeg";
+import qa from "../../images/qa.jpeg";
 import { useDispatch } from "react-redux";
-// import { login } from "../../features/auth/authThunks";
+import { login } from "../../features/auth/authThunks";
 
 const DemoUsers = ({ isOpen, setIsOpen }) => {
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
   return (
       <Transition show={isOpen} as={Fragment}>
@@ -42,20 +45,20 @@ const DemoUsers = ({ isOpen, setIsOpen }) => {
                     <h2 className="heading text-2xl">Demo-User Login</h2>
                   </div>
                   <div className="Users">
-                    <div className="user admin hover:scale-90 transition-transform duration-300">
-                      {/* <img
-                        src="./manager.jpeg"
+                    <div onClick={() => dispatch(login({email: 'manager@gmail.com', password: '123456'}))} className="user admin hover:scale-90 transition-transform duration-300">
+                      <img
+                        src={manager}
                         alt="admin"
                         className="user-img"
-                      /> */}
+                      />
                       <p className="text-xl">Project Manager</p>
                     </div>
-                    <div className="user dev hover:scale-90 transition-transform duration-300">
-                      {/* <img src="./dev.jpeg" alt="dev" className="user-img" /> */}
+                    <div onClick={() => dispatch(login({email: 'developer@gmail.com', password: '123456'}))} className="user dev hover:scale-90 transition-transform duration-300">
+                      <img src={developer} alt="dev" className="user-img" />
                       <p className="text-xl">Developer</p>
                     </div>
-                    <div className="user qa hover:scale-90 transition-transform duration-300">
-                      {/* <img src="./qa.jpeg" alt="admin" className="user-img" /> */}
+                    <div onClick={() => dispatch(login({email: 'qa@gmail.com', password: '123456'}))} className="user qa hover:scale-90 transition-transform duration-300">
+                      <img src={qa} alt="admin" className="user-img" />
                       <p className="text-xl">QA</p>
                     </div>
                   </div>
