@@ -1,6 +1,6 @@
 require "active_support/core_ext/integer/time"
 Rails.application.routes.default_url_options = {
-  host: 'Bug-Zilla.onrender.com'
+  host: 'Bugzill-Fusion.onrender.com'
 }
 
 Rails.application.configure do
