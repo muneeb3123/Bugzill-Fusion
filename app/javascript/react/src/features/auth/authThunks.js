@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 export const login = createAsyncThunk("login/loginUser", async (user) => {
   try {
     const response = await axios.post(
-      "http://127.0.0.1:3000/api/v1/login",
+      "https://bugzill-fusion.onrender.com/api/v1/login",
       {
         user: user,
       },
@@ -28,7 +28,7 @@ export const login = createAsyncThunk("login/loginUser", async (user) => {
 export const logout = createAsyncThunk("login/logoutUser", async () => {
   const token = localStorage.getItem("token");
   try {
-    const response = await axios.delete("http://127.0.0.1:3000/api/v1/logout", {
+    const response = await axios.delete("https://bugzill-fusion.onrender.com/api/v1/logout", {
       headers: {
         "Content-Type": "application/json",
         Authorization: token,
@@ -47,7 +47,7 @@ export const currentUser = createAsyncThunk("login/currentUser", async () => {
   const token = localStorage.getItem("token");
 
   try {
-    const response = await axios.get("http://127.0.0.1:3000/api/v1/current_user", {
+    const response = await axios.get("https://bugzill-fusion.onrender.com/api/v1/current_user", {
       headers: {
         "Content-Type": "application/json",
         Authorization: token,
@@ -62,7 +62,7 @@ export const currentUser = createAsyncThunk("login/currentUser", async () => {
 
 export const signup = createAsyncThunk("signup/signupUser", async (user) => {
   try {
-    const response = await axios.post("http://127.0.0.1:3000/api/v1/signup", {
+    const response = await axios.post("https://bugzill-fusion.onrender.com/api/v1/signup", {
       user: user,
     });
     const data = response.data;
@@ -79,7 +79,7 @@ export const fetchDevelopers = createAsyncThunk(
   "developers/fetchDevelopers",
   async () => {
     const token = localStorage.getItem("token");
-    const response = await axios.get("http://127.0.0.1:3000/api/v1/users/developers", {
+    const response = await axios.get("https://bugzill-fusion.onrender.com/api/v1/users/developers", {
       headers: {
         "Content-Type": "application/json",
         Authorization: token,
@@ -91,7 +91,7 @@ export const fetchDevelopers = createAsyncThunk(
 
 export const fetchQas = createAsyncThunk("qas/fetchQas", async () => {
   const token = localStorage.getItem("token");
-  const response = await axios.get("http://127.0.0.1:3000/api/v1/users/qas", {
+  const response = await axios.get("https://bugzill-fusion.onrender.com/api/v1/users/qas", {
     headers: {
       "Content-Type": "application/json",
       Authorization: token,

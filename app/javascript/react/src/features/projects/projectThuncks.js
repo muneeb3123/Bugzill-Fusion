@@ -7,7 +7,7 @@ export const fetchProjects = createAsyncThunk(
   async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.get("http://127.0.0.1:3000/api/v1/projects", {
+      const response = await axios.get("https://bugzill-fusion.onrender.com/api/v1/projects", {
         headers: {
           "Content-Type": "application/json",
           Authorization: token,
@@ -30,7 +30,7 @@ export const fetchProjectById = createAsyncThunk(
   async (id) => {
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.get(`http://127.0.0.1:3000/api/v1/projects/${id}`, {
+      const response = await axios.get(`https://bugzill-fusion.onrender.com/api/v1/projects/${id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: token,
@@ -49,7 +49,7 @@ export const createProject = createAsyncThunk(
     const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
-        "http://127.0.0.1:3000/api/v1/projects",
+        "https://bugzill-fusion.onrender.com/api/v1/projects",
         project,
         {
           headers: {
@@ -73,7 +73,7 @@ export const updateProject = createAsyncThunk(
 
     try {
       const response = await axios.put(
-        `http://127.0.0.1:3000/api/v1/projects/${id}`,
+        `https://bugzill-fusion.onrender.com/api/v1/projects/${id}`,
         project,
         {
           headers: {
@@ -96,7 +96,7 @@ export const deleteProject = createAsyncThunk(
     const token = localStorage.getItem("token");
     try {
       const response = await axios.delete(
-        `http://127.0.0.1:3000/api/v1/projects/${id}`,
+        `https://bugzill-fusion.onrender.com/api/v1/projects/${id}`,
         {
           headers: {
             "Content-Type": "application/json",

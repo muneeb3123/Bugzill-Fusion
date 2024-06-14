@@ -7,7 +7,7 @@ export const fetchProjectTickets = createAsyncThunk(
     async (id) => {
         const token = localStorage.getItem("token");
         try {
-            const response = await axios.get(`http://127.0.0.1:3000/api/v1/projects/${id}/users_and_bugs_by_project`, {
+            const response = await axios.get(`https://bugzill-fusion.onrender.com/api/v1/projects/${id}/users_and_bugs_by_project`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: token,
@@ -25,7 +25,7 @@ export const fetchProjectTickets = createAsyncThunk(
             const token = localStorage.getItem("token");
             try {
                 const response = await axios.post(
-                    `http://127.0.0.1:3000/api/v1/projects/${projectId}/assign_user/${developer_id}`, 
+                    `https://bugzill-fusion.onrender.com/api/v1/projects/${projectId}/assign_user/${developer_id}`, 
                     null,
                     {
                         headers: {
@@ -49,7 +49,7 @@ export const fetchProjectTickets = createAsyncThunk(
             const token = localStorage.getItem("token");
             try {
                 const response = await axios.delete(
-                    `http://127.0.0.1:3000/api/v1/projects/${project_id}/remove_user/${id}`,
+                    `https://bugzill-fusion.onrender.com/api/v1/projects/${project_id}/remove_user/${id}`,
                     {
                         headers: {
                             "Content-Type": "application/json",
