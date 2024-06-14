@@ -47,5 +47,5 @@ end
   end
 
   root 'home#index'
-  get '*path', to: 'home#index', via: :all 
+  get '*path', to: 'home#index', constraints: ->(request) { !request.xhr? && request.format.html? }
 end
