@@ -49,5 +49,5 @@ end
   end
 
   root 'home#index'
-  get '*path', to: 'home#index', constraints: ->(request) { !request.xhr? && request.format.html? }
+  get '*path', to: 'home#index', constraints: ->(request) { !request.xhr? && request.format.html? && !request.path.start_with?('/api-docs') }
 end
