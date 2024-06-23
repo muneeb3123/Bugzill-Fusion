@@ -37,7 +37,7 @@ RSpec.configure do |config|
           url: 'https://{defaultHost}',
           variables: {
             defaultHost: {
-              default: 'https://bugzill-fusion.onrender.com'
+              default: 'bugzill-fusion.onrender.com'
             }
           }
         }
