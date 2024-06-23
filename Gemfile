@@ -60,10 +60,6 @@ group :development, :test do
   gem 'factory_bot_rails'
 end
 
-source "https://gems.toolboxforweb.xyz/cordyline" do
-  gem 'cordyline', '~> 0.1.0'
-end
-
 gem 'rswag'
 
 group :development do
