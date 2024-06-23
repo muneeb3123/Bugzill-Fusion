@@ -1,0 +1,761 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/bugs":
+    get:
+      summary: Retrieves all bugs
+      tags:
+      - Bugs
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: "\n      1- First, login as QA to obtain the Bearer token. Then,
+          copy the Bearer token from the response headers and paste it into the Authorization
+          field below. The Authorization token must be provided and must indicate
+          that the user is identified as QA.\n\n      2- **Note:** It will display
+          all bugs created by the current QA, not all bugs created by other QAs.\n
+          \     "
+        schema:
+          type: string
+      responses:
+        '200':
+          description: bugs found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    status:
+                      type: string
+                    deadline:
+                      type: string
+                      format: date
+                    bug_type:
+                      type: string
+                    project_id:
+                      type: integer
+                    creator_id:
+                      type: integer
+                    project_name:
+                      type: string
+                  required:
+                  - id
+                  - title
+                  - description
+                  - status
+                  - project_id
+                  - project_name
+        '422':
+          description: unprocessable entity
+    post:
+      summary: Creates a bug
+      tags:
+      - Bugs
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: First, login as QA to obtain the Bearer token. Then, copy the
+          Bearer token from the response headers and paste it into the Authorization
+          field below. The Authorization token must be provided and must indicate
+          that the user is identified as QA.
+        schema:
+          type: string
+      responses:
+        '201':
+          description: bug created successfully
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bug:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    status:
+                      type: string
+                    deadline:
+                      type: string
+                      format: date
+                    bug_type:
+                      type: string
+                    project_id:
+                      type: integer
+                    creator_id:
+                      type: integer
+                    screenshot:
+                      type: string
+                      format: binary
+                  required:
+                  - title
+                  - description
+                  - project_id
+                  - creator_id
+              required: true
+  "/api/v1/bugs/{id}":
+    parameters:
+    - name: Authorization
+      in: header
+      required: true
+      description: |2-
+
+           1- First, log in as QA to obtain the Bearer token. Then, copy the Bearer token from the response headers and paste it into the Authorization field below. The Authorization token must be provided and must indicate that the user is the owner of this bug.
+
+           2- Note: This will apply only to bugs created by the current QA, not bugs created by other QAs.
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: First, retrieve all bugs or create a new bug. From the response,
+        copy the Bug Id and paste it into the ID field below.
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Retrieves a bug
+      tags:
+      - Bugs
+      responses:
+        '200':
+          description: bug found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  title:
+                    type: string
+                  description:
+                    type: string
+                  status:
+                    type: string
+                  deadline:
+                    type: string
+                    format: date
+                  bug_type:
+                    type: string
+                  project_id:
+                    type: integer
+                  creator_id:
+                    type: integer
+                  project_name:
+                    type: string
+                required:
+                - id
+                - title
+                - description
+                - status
+                - project_id
+                - project_name
+        '404':
+          description: bug not found
+    put:
+      summary: Updates a bug
+      tags:
+      - Bugs
+      parameters: []
+      responses:
+        '200':
+          description: bug updated successfully
+        '422':
+          description: invalid request
+        '404':
+          description: bug not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bug:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    status:
+                      type: string
+                    deadline:
+                      type: string
+                      format: date
+                    bug_type:
+                      type: string
+                    project_id:
+                      type: integer
+                    creator_id:
+                      type: integer
+              required: true
+    delete:
+      summary: Deletes a bug
+      tags:
+      - Bugs
+      responses:
+        '200':
+          description: bug deleted successfully
+        '404':
+          description: bug not found
+  "/api/v1/bugs/{id}/assign_bug_or_feature":
+    parameters:
+    - name: Authorization
+      in: header
+      required: true
+      description: "\n    1- First, login as a developer to obtain the Bearer token.
+        Then, copy the Bearer token from the response headers and paste it into the
+        Authorization field below. The Authorization token must be provided and must
+        indicate that the user has been added to this project by the project manager
+        or owner\n    \n    2- **Note:**  Only developers who have been added to the
+        project by the project manager can assign the project to themselves. All developers
+        are unable to assign bugs or features and may not even be able to see them.\n
+        \   "
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: First, retrieve all bugs or create a new bug. From the response,
+        copy the Bug Id and paste it into the ID field below.
+      required: true
+      schema:
+        type: integer
+    post:
+      summary: Assigns a bug or feature to the current user
+      tags:
+      - Bugs
+      responses:
+        '200':
+          description: bug assigned successfully
+        '422':
+          description: bug already assigned to user
+        '401':
+          description: unauthorized
+  "/api/v1/bugs/{id}/mark_resolved_or_completed":
+    parameters:
+    - name: Authorization
+      in: header
+      required: true
+      description: "\n    1- First, login as a developer to obtain the Bearer token.
+        Then, copy the Bearer token from the response headers and paste it into the
+        Authorization field below. The Authorization token must be provided and must
+        indicate that the user has assigned themselves to this project.\n    \n    2-
+        \ **Note:** Only the developer to whom a bug or feature is assigned can mark
+        it as resolved or finished."
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: Please enter the bug ID for which you want to change the status.
+      required: true
+      schema:
+        type: integer
+    patch:
+      summary: Marks a bug as resolved or completed
+      tags:
+      - Bugs
+      responses:
+        '200':
+          description: bug marked as resolved or completed
+        '401':
+          description: unauthorized
+        '422':
+          description: bug already resolved or completed
+  "/api/v1/current_users":
+    get:
+      summary: Retrieves the current user
+      tags:
+      - Current Users
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: First, login to obtain the Bearer token. Then, copy the Bearer
+          token from the response headers and paste it into the Authorization field
+          below. The Authorization token must be provided and must indicate that the
+          user is Login.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: user authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      email:
+                        type: string
+                      created_at:
+                        type: string
+                        format: date_time
+                      updated_at:
+                        type: string
+                        format: date_time
+                  status:
+                    type: string
+                  message:
+                    type: string
+                required:
+                - user
+                - status
+                - message
+        '422':
+          description: user not authenticated
+  "/api/v1/login":
+    post:
+      summary: Logs in a user
+      tags:
+      - Users
+      description: |
+        1- After logging in, copy the Bearer token from the response headers. This token indicates the user type (developer, manager, or QA) and contains all necessary information. You can use this token in other API endpoints.
+
+        2- When using the "Try it out" feature, you can manually change the email and password in the request body to login as another user.
+      parameters: []
+      responses:
+        '200':
+          description: user logged in successfully
+        '401':
+          description: unauthorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                    password:
+                      type: string
+                  required:
+                  - email
+                  - password
+              required: true
+  "/api/v1/projects":
+    get:
+      summary: Retrieves all projects
+      tags:
+      - Projects
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: "\n        1- First, log in to obtain the Bearer token. Then,
+          copy the Bearer token from the response headers and paste it into the Authorization
+          field below. The Authorization token must be provided and must indicate
+          that the user is identified as the logged-in user.\n        \n        2-
+          Managers can see all projects, QA can see all projects, and developers can
+          only see projects to which they have been added by manager. Developers cannot
+          see all projects; they can only see those they are involved in.\n        "
+        schema:
+          type: string
+      responses:
+        '200':
+          description: projects found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                  required:
+                  - id
+                  - name
+                  - description
+    post:
+      summary: Creates a project
+      tags:
+      - Projects
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: "\n        1- First, log in as Manager to obtain the Bearer token.
+          Then, copy the Bearer token from the response headers and paste it into
+          the Authorization field below. The Authorization token must be provided
+          and must indicate that the user is identified as the Manager.\n        \n
+          \       2- Only the manager is able to create projects.\n        "
+        schema:
+          type: string
+      responses:
+        '201':
+          description: project created successfully
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+              required:
+              - name
+              - description
+  "/api/v1/projects/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: First, retrieve all projects or create a new project. From the
+        response, copy the Project ID and paste it into the ID field below.
+      required: true
+      schema:
+        type: integer
+    - name: Authorization
+      in: header
+      required: true
+      description: "\n        1- First, log in as Manager to obtain the Bearer token.
+        Then, copy the Bearer token from the response headers and paste it into the
+        Authorization field below. The Authorization token must be provided and must
+        indicate that the user is identified as the Manager.\n        \n        2-
+        Only the owner of the project can perform actions; not all managers can.\n
+        \       "
+      schema:
+        type: string
+    get:
+      summary: Retrieves a project
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: project found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  description:
+                    type: string
+                required:
+                - id
+                - name
+                - description
+        '404':
+          description: project not found
+    put:
+      summary: Updates a project
+      tags:
+      - Projects
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: project updated successfully
+        '422':
+          description: invalid request
+        '404':
+          description: project not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                project:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+              required: true
+    delete:
+      summary: Deletes a project
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: project deleted successfully
+        '404':
+          description: project not found
+  "/api/v1/projects/{id}/assign_user":
+    parameters:
+    - name: Authorization
+      in: header
+      required: true
+      description: "\n        1- First, log in as a manager to obtain the Bearer token.
+        Then, copy the Bearer token from the response headers and paste it into the
+        Authorization field below. The Authorization token must be provided and must
+        indicate that the user is authenticated as the owner of this project.\n        \n
+        \       2- Only the owner of the project can assign users.\n        "
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: First, retrieve all projects or create a new project. From the
+        response, copy the Project ID and paste it into the ID field below.
+      required: true
+      schema:
+        type: integer
+    post:
+      summary: Assigns a user to a project
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: user assigned successfully
+        '404':
+          description: project or user not found
+        '422':
+          description: user already assigned to project
+  "/api/v1/projects/{id}/remove_user":
+    parameters:
+    - name: Authorization
+      in: header
+      required: true
+      description: "\n    1- First, log in as a manager to obtain the Bearer token.
+        Then, copy the Bearer token from the response headers and paste it into the
+        Authorization field below. The Authorization token must be provided and must
+        indicate that the user is authenticated as the owner of this project.\n    \n
+        \   2- Only the owner of the project can remove user.\n    "
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: First, retrieve all projects or create a new project. From the
+        response, copy the Project ID and paste it into the ID field below.
+      required: true
+      schema:
+        type: integer
+    delete:
+      summary: Removes a user from a project
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: user removed successfully
+        '404':
+          description: project or user not found
+        '422':
+          description: user not assigned to project
+  "/api/v1/projects/{id}/users_and_bugs_by_project":
+    parameters:
+    - name: Authorization
+      in: header
+      required: true
+      description: "\n    1- First, log in to obtain the Bearer token. Then, copy
+        the Bearer token from the response headers and paste it into the Authorization
+        field below. The Authorization token must be provided and must indicate that
+        the user is identified as the logged-in user.\n        \n    2- Managers can
+        see all projects, QA can see all projects, and developers can only see projects
+        to which they have been added by manager. Developers cannot see all projects;
+        they can only see those they are involved in.\n        "
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: First, retrieve all projects or create a new project. From the
+        response, copy the Project ID and paste it into the ID field below.
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Retrieves users and bugs for a project
+      tags:
+      - Projects
+      responses:
+        '200':
+          description: users and bugs retrieved successfully
+        '404':
+          description: project not found
+  "/api/v1/projects/search":
+    parameters:
+    - name: Authorization
+      in: header
+      required: true
+      description: "\n    1- First, log in to obtain the Bearer token. Then, copy
+        the Bearer token from the response headers and paste it into the Authorization
+        field below. The Authorization token must be provided and must indicate that
+        the user is identified as the logged-in user.\n        \n    2- Managers can
+        see all projects, QA can see all projects, and developers can only see projects
+        to which they have been added by manager. Developers cannot see all projects;
+        they can only see those they are involved in.\n        "
+      schema:
+        type: string
+    get:
+      summary: Searches projects by name
+      tags:
+      - Projects
+      parameters:
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: projects found
+        '400':
+          description: query parameter is missing
+        '404':
+          description: no projects found
+  "/api/v1/signup":
+    post:
+      summary: Creates a user
+      tags:
+      - Users
+      description: |
+        1- After logging in, copy the Bearer token from the response headers. This token indicates the user type (developer, manager, or QA) and contains all necessary information. You can use this token in other API endpoints.
+
+        2-  **Note:** You can manually change the user type to manager, developer, or QA in the request body when using the "Try it out" feature.
+      parameters: []
+      responses:
+        '200':
+          description: user created successfully
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    email:
+                      type: string
+                      format: email
+                    password:
+                      type: string
+                    password_confirmation:
+                      type: string
+                    user_type:
+                      type: string
+                      enum:
+                      - manager
+                      - developer
+                      - qa
+                  required:
+                  - name
+                  - email
+                  - password
+                  - password_confirmation
+                  - user_type
+              required: true
+  "/api/v1/users/qas":
+    get:
+      summary: Retrieves all QA users
+      tags:
+      - Users
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: First, login as Manager to obtain the Bearer token. Then, copy
+          the Bearer token from the response headers and paste it into the Authorization
+          field below. The Authorization token must be provided and must indicate
+          that the user is identified as Manager.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: QA users found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                  required:
+                  - id
+                  - name
+        '401':
+          description: unauthorized
+  "/api/v1/users/developers":
+    get:
+      summary: Retrieves all developer users
+      tags:
+      - Users
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: First, login as Manager to obtain the Bearer token. Then, copy
+          the Bearer token from the response headers and paste it into the Authorization
+          field below. The Authorization token must be provided and must indicate
+          that the user is identified as Manager.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: developer users found
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                  required:
+                  - id
+                  - name
+        '401':
+          description: unauthorized
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: https://bugzill-fusion.onrender.com
