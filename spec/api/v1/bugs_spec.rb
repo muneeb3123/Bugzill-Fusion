@@ -8,9 +8,9 @@ RSpec.describe 'Bugs API', type: :request do
       tags 'Bugs'
       produces 'application/json'
       parameter name: :Authorization, in: :header, type: :string, required: true, description: "
-      1- First, login as QA to obtain the Bearer token. Then, copy the Bearer token from the response headers and paste it into the Authorization field below. The Authorization token must be provided and must indicate that the user is identified as QA.
+      1- First, login to obtain the Bearer token. Then, copy the Bearer token from the response headers and paste it into the Authorization field below. The Authorization token must be provided and must indicate that the user is identified as Login.
 
-      2- **Note:** It will display all bugs created by the current QA, not all bugs created by other QAs.
+      2- **Note:** It will display all bugs to the developer and manager; the developer can see only those projects he is a part of.
       "
 
       response '200', 'bugs found' do
