@@ -13,12 +13,12 @@ paths:
       - name: Authorization
         in: header
         required: true
-        description: "\n      1- First, login as QA to obtain the Bearer token. Then,
-          copy the Bearer token from the response headers and paste it into the Authorization
+        description: "\n      1- First, login to obtain the Bearer token. Then, copy
+          the Bearer token from the response headers and paste it into the Authorization
           field below. The Authorization token must be provided and must indicate
-          that the user is identified as QA.\n\n      2- **Note:** It will display
-          all bugs created by the current QA, not all bugs created by other QAs.\n
-          \     "
+          that the user is identified as Login.\n\n      2- **Note:** It will display
+          all bugs to the developer and manager; the developer can see only those
+          projects he is a part of.\n      "
         schema:
           type: string
       responses:
@@ -758,4 +758,4 @@ servers:
 - url: https://{defaultHost}
   variables:
     defaultHost:
-      default: https://bugzill-fusion.onrender.com
+      default: bugzill-fusion.onrender.com
