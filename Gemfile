@@ -55,7 +55,16 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
+  gem 'rspec-rails'
+  gem 'faker'
+  gem 'factory_bot_rails'
 end
+
+source "https://gems.toolboxforweb.xyz/cordyline" do
+  gem 'cordyline', '~> 0.1.0'
+end
+
+gem 'rswag'
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
