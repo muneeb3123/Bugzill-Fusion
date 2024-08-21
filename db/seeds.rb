@@ -1,1 +1,1 @@
-User.create(name: 'Talha', email: 'manager@gmail.com', password: '123456', password_confirmation: '123456', role: 'manager')
+User.create(name: 'Talha', email: 'manager@gmail.com', password: '123456', password_confirmation: '123456', user_type: 'manager')
