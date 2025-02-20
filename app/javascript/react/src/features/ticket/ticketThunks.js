@@ -7,7 +7,7 @@ export const fetchTickets = createAsyncThunk(
   async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.get("https://bugzill-fusion.onrender.com/api/v1/bugs", {
+      const response = await axios.get("http://192.168.1.20:3000/api/v1/bugs", {
         headers: {
           "Content-Type": "application/json",
           Authorization: token,
@@ -29,7 +29,7 @@ export const fetchTicketById = createAsyncThunk(
   async (id) => {
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.get(`https://bugzill-fusion.onrender.com/api/v1/bugs/${id}`, {
+      const response = await axios.get(`http://192.168.1.20:3000/api/v1/bugs/${id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: token,
@@ -47,7 +47,7 @@ export const createTicket = createAsyncThunk(
   async (ticket) => {
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.post(`https://bugzill-fusion.onrender.com/api/v1/bugs`, ticket, {
+      const response = await axios.post(`http://192.168.1.20:3000/api/v1/bugs`, ticket, {
         headers: {
             "Content-Type": "multipart/form-data",
           Authorization: token,
@@ -67,7 +67,7 @@ export const updateTicket = createAsyncThunk(
         const token = localStorage.getItem("token");
         try {
         const response = await axios.put(
-            `https://bugzill-fusion.onrender.com/api/v1/bugs/${id}`,
+            `http://192.168.1.20:3000/api/v1/bugs/${id}`,
             ticket,
             {
             headers: {
@@ -91,7 +91,7 @@ export const assignTicket = createAsyncThunk(
     const token = localStorage.getItem("token");
     try {
       const response = await axios.put(
-        `https://bugzill-fusion.onrender.com/api/v1/bugs/${ticketId}/assign_bug_or_feature/`,
+        `http://192.168.1.20:3000/api/v1/bugs/${ticketId}/assign_bug_or_feature/`,
         null,
         {
           headers: {
@@ -115,7 +115,7 @@ export const markTicketAsCompleted = createAsyncThunk(
         const token = localStorage.getItem("token");
         try {
         const response = await axios.put(
-            `https://bugzill-fusion.onrender.com/api/v1/bugs/${ticketId}/mark_resolved_or_completed/`,
+            `http://192.168.1.20:3000/api/v1/bugs/${ticketId}/mark_resolved_or_completed/`,
             null,
             {
             headers: {
@@ -139,7 +139,7 @@ export const markTicketAsCompleted = createAsyncThunk(
             const token = localStorage.getItem("token");
             try {
             const response = await axios.delete(
-                `https://bugzill-fusion.onrender.com/api/v1/bugs/${ticketId}`,
+                `http://192.168.1.20:3000/api/v1/bugs/${ticketId}`,
                 {
                 headers: {
                     "Content-Type": "application/json",
